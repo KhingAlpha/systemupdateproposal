@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #0d0d12;
+    --surface: #14141c;
+    --surface2: #1c1c28;
+    --border: #2a2a3a;
+    --pink: #ff3ea5;
+    --pink-dim: #c42e7c;
+    --green: #39d98a;
+    --text: #e8e8f0;
+    --muted: #6b6b85;
+    --pixel: 'Press Start 2P', monospace;
+    --sans: 'Inter', sans-serif;
+}
+
+html, body {
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px;
+    gap: 0;
+}
+
+/* Scaline overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Confetti canvas */
+#confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 99;
+}
+
+.window {
+    width: 100%;
+    max-width: 520px;
+    background: var(--surface);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 0 1px rgba(255, 62, 165, 0.1), 0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(255, 62, 165, 0.08);
+    overflow: hidden;
+    animation: boot 0.5s ease-out;
+}
+
+@keyframes boot {
+    from { opacity: 0; transform: scale(0.94) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.titlebar {
+    background: var(--surface2);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.dots {
+    display: flex;
+    gap: 7px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot-red {
+    background: #ff5f57;
+}
+
+.dot-amber {
+    background: #febc2e;
+}
+
+.dot-green {
+    background: #28c840;
+}
+
+.titlebar-label {
+    flex: 1;
+    text-align: center;
+    font-family: var(--pixel);
+    font-size: 9px;
+    color: var(--green);
+    letter-spacing: 0.12em;
+    margin-right: 36px; /* optical balance with dots */
+}
+
+/* body */
+.body {
+    padding: 28px 24px 24px;
+    text-align: center;
+}
+
+.success-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(57,217,138,0.08);
+    font-size: 28px;
+    margin-bottom: 18px;
+    animation: pop 0.4s 0.3s both cubic-bezier(0.175, 0.885,0.32,1.275);
+    border: 2px solid var(--green);
+}
+
+@keyframes pop {
+    from { 
+        transform: scale(0); 
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1); 
+        opacity: 1;
+    }
+}
+
+.status-pill {
+    display: inline-block;
+    background: rgba(57,217,138,0.12);
+    border: 1px solid rgba(57,217,138,0.3);
+    color: var(--green);
+    font-family: var(--pixel);
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-family: var(--pixel);
+    font-size: clamp(13px, 4vw, 17px);
+    color: var(--text);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+}  
+
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 22px 0;
+}
+
+/* Image Frame */
+.image-frame {
+    border: 1px solid rgba(255, 62, 165, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255, 62, 165, 0.04);
+    position: relative;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.image-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 9px;
+}
+
+/* Shown when no image is set yet */
+.image-placeholder {
+    padding: 40px 20px;
+    text-align: center;
+}
+.placeholder-icon { font-size: 36px; margin-bottom: 12px; }
+
+.placeholder-text {
+    font-family: var(--pixel);
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    line-height: 1.9;
+}
+ 
+.caption {
+    font-family: var(--pixel);
+    font-size: 7px;
+    color: var(--pink);
+    letter-spacing: 0.1em;
+    line-height: 2;
+    margin-bottom: 6px;
+}
+ 
+.hearts-row {
+    font-size: 20px;
+    letter-spacing: 6px;
+    animation: drift 3s ease-in-out infinite;
+}
+@keyframes drift {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-4px); }
+}
